@@ -1,0 +1,52 @@
+name: "hf_naive"
+backend: "python"
+max_batch_size:32
+
+
+input[
+    {
+        name:"text_input"
+        data_type:TYPE_STRING
+        dims:[1]
+    }
+]
+
+output[
+    {
+        name:"text_output"
+        data_type:TYPE_STRING
+        dims:[1]
+    }
+]
+
+model_transaction_policy{
+    decoupled:true
+}
+
+dynamic_batching{
+    max_queue_delay_microseconds:20000
+}
+
+
+instance_group[
+    {
+        count:1
+        kind:KIND_GPU
+        gpus:[0]
+    }
+]
+
+
+parameters{
+    key:"model_id"
+    value{
+        string_value:"NousResearch/Llama-3.2-1B"
+    }
+}
+
+parameters{
+  key:"dtype"
+  value{
+    string_value: "bfloat16"
+  }
+}
