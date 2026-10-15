@@ -1,0 +1,9 @@
+FROM nvcr.io/nvidia/tritonserver:25.10-trtllm-python-py3
+RUN pip install --no-cache-dir pydantic
+WORKDIR /opt/app
+COPY common/ /opt/app/common
+COPY engine/ /opt/app/engine
+COPY serving/triton/hf_naive /models/hf_naive
+ENV PYTHONPATH=/opt/app
+EXPOSE 8000 8001 8002
+CMD ["tritonserver","--model-repository=/models"]
