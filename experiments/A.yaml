@@ -1,0 +1,15 @@
+name: A
+target:
+  stack: A
+  protocol: triton_hf
+  url: http://localhost:8000
+  model: hf_naive
+  stats_path: /v2/models/hf_naive/stats
+trace:
+  num_requests: 300
+  prompt_len: 256
+  output_dist: exponential
+  output_mean: 128
+  output_max: 1024
+  seed: 0
+rates: [1, 2, 4, 6]
