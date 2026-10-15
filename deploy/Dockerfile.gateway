@@ -1,0 +1,14 @@
+FROM python:3.12-slim
+
+WORKDIR /opt/app
+
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+COPY common/ common/
+COPY serving/__init__.py serving/gateway.py serving/
+
+ENV PYTHONPATH=/opt/app
+EXPOSE 8080
+
+CMD ["python", "-m", "serving.gateway"]
